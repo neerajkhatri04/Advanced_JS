@@ -2,7 +2,19 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 
-app.get("/home", (req, res) => {
+const logger1 = (req, res, next) => {
+  console.log("Inside logger1");
+  next();
+};
+
+const logger2 = (req, res, next) => {
+  console.log("Inside logger2");
+  next();
+};
+
+const logArr = [logger1, logger2];
+
+app.get("/home", logArr, (req, res) => {
   // res.send("hello world GET");
   res.json({
     message: "hello world GET",
